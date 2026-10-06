@@ -183,14 +183,12 @@ describe('ensureValidBucketExists', () => {
   });
 
   it('does not fall back when HeadBucket fails for a reason other than a 403', async () => {
-    const send = sinon
-      .stub()
-      .rejects(
-        Object.assign(new Error('NotFound'), {
-          name: 'NotFound',
-          $metadata: { httpStatusCode: 404 },
-        })
-      );
+    const send = sinon.stub().rejects(
+      Object.assign(new Error('NotFound'), {
+        name: 'NotFound',
+        $metadata: { httpStatusCode: 404 },
+      })
+    );
 
     await expect(
       customBucketContext(send).ensureValidBucketExists()
